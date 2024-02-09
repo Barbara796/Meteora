@@ -3,7 +3,6 @@ import { createGlobalStyle } from "styled-components";
 
 const EstilosGlobais = createGlobalStyle`
 
-@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
 
 html {
     line-height: 1.15; /* 1 */

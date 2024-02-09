@@ -42,8 +42,8 @@ const InputEstilizado = styled.input `
 
 const BotaoEstilizado = styled.button `
     margin-right: 16px;
-    width: 80px;
-    height: 40px;
+    width: 90px;
+    height: 50px;
     background-color: black;
     color: white;
     border-color: white;
