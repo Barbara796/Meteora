@@ -12,9 +12,9 @@ import casacos from './imagens/casacos.png'
 const FiltroContainer = styled.div`
     display: flex;
     flex-direction: column;
-    width: 90vw;
-    height: 263px;
     box-sizing: border-box;
+    padding: 4% 20% 4% 20%;
+    gap: 10px;
 `
 
 const ListaImagensFiltros = styled.ul `

@@ -4,9 +4,8 @@ import logo from './logo.png'
 
 const MenuEstilizado = styled.div`
     background-color: black;
-    width: 100vw;
-    height: 50px;
-    padding: 20px 0px;
+    height: 20%;
+    padding: 1% 0%;
     display: flex;
     justify-content: space-around;
   
@@ -14,13 +13,11 @@ const MenuEstilizado = styled.div`
 `
 
 const ListaEstilizada = styled.ul`
-    width: 45vw;
-    height: 20px;
-    margin: 0;
-    padding: 16px 165px;
+    height: 3%;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    gap:24px;
+
 
 `
 const ItemLista = styled.li`
@@ -28,26 +25,31 @@ const ItemLista = styled.li`
     list-style-type: none;
 `
 
-const DivEstilizada = styled.div`
+ const DivEstilizada = styled.div`
     display: flex;
-    justify-content: space-between;
+    align-items: center;
+    background-color: black;
+    gap:10px;
+
 `
 
 const InputEstilizado = styled.input `
-    margin-right: 8px;
     text-align: center;
+    height: 5vh;
     
 
 `
 
 const BotaoEstilizado = styled.button `
-    margin-right: 16px;
-    width: 90px;
-    height: 50px;
+    height: 5vh;
+    width: 12vh;
     background-color: black;
     color: white;
     border-color: white;
-`
+` 
+
+
+
 
 const IconeCarrinho = styled.img`
     width: 65px;
@@ -55,15 +57,14 @@ const IconeCarrinho = styled.img`
 `
 
 const LogoMeteora = styled.img `
-    width: 132px;
-    height: 32px;
+    width: 22vh;
 `
 
 const Menu = () => {
     return(
         <MenuEstilizado>
              <ListaEstilizada>
-                <LogoMeteora src={logo} alt="logo meteoro"/>
+                <LogoMeteora src={logo} alt="logo meteora"/>
                 <ItemLista>Nossas Lojas</ItemLista>
                 <ItemLista>Novidades</ItemLista>
                 <ItemLista>Promoçoes</ItemLista>

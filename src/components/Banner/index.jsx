@@ -3,7 +3,7 @@ import banner from './banner.png'
 
 
 const BannerEstilizado = styled.img`
-    width: 100vw;
+    width: 100%;
 
 `
 

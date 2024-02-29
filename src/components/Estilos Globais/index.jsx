@@ -4,6 +4,13 @@ import { createGlobalStyle } from "styled-components";
 const EstilosGlobais = createGlobalStyle`
 
 
+:root {
+    --roxo:#9353FF;
+    --preto: #000000;
+    --branco-acinzentado: #F6F6F6
+
+}
+
 html {
     line-height: 1.15; /* 1 */
     -webkit-text-size-adjust: 100%; /* 2 */
@@ -14,9 +21,9 @@ html {
   
 
   
+
   body {
     margin: 0;
-   
   }
   
   
