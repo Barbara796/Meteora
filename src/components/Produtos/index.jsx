@@ -2,83 +2,115 @@ import styled from "styled-components"
 import Camiseta from './imagens/Camiseta.png'
 import Calca from './imagens/Calca.png'
 import Tenis from './imagens/Tenis.png'
+import Botao from "../Botao"
+import { useNavigate } from "react-router-dom"
+import { useContext } from "react"
+import { CarrinhoContext } from "../../contexto"
+import { useState } from "react"
+import { useEffect } from "react"
 
-const TextoProduto = styled.h3`
-    text-align: center;
-    font-size: 32px;
+
+export const TextoProduto = styled.h3`
+    text-align: ${props => props.alinhamento === "lista" ? 'start' : 'center'};
+    font-size: ${props => props.fonte === "lista" ? '1.5rem' : '2rem'};
+    color: ${props => props.color === "carrinho" ? '#FFFFFF' : 'black'};
+    
 `
-const ListaProdutos = styled.ul`
+export const ListaProdutos = styled.ul`
     display: flex;
     justify-content: space-between;
     padding: 0% 12% 6% 12%;
+    background-color: ${props => props.background === "carrinho" ? '#000000' : 'white'};
+    flex-direction: ${props => props.direction === "carrinho" ? "column" : "row"};
+    width:${props => props.width === "carrinho" ? "30%" : "76%"};
 
 `
 
-const CardProdutos = styled.ul`
+export const CardProdutos = styled.ul`
     display: flex;
-    flex-direction: column;
+    flex-direction: ${props => props.direction === "carrinho" ? "row" : "column"};
     border: 2px solid #e0dfdf;
     padding: 0% 0%;
-`
-
-const ImagensProdutos = styled.img`
+    width: 30%;
 
 `
 
-const BotaoProduto = styled.button `
-    background-color: #9353FF;
-    width: 12vw;
-    border-style: none;
-    text-align: center;
-    margin: 2% 2% 2% 2%;
-    padding: 2% 2% 2% 2%;
-    color: white;
+export const ImagensProdutos = styled.img`
+    width:${props => props.image === "carrinho" ? "100%" : "100%"};
+;
 `
 
-const NomeProduto = styled.h4`
-    color: black;
+
+export const NomeProduto = styled.h4`
+    color: ${props => props.color === "carrinho" ? '#FFFFFF' : 'black'};
     margin: 4% 2% 4% 2%;
     
 `
 
-const DescricaoProduto = styled.p`
+export const DescricaoProduto = styled.p`
+    color: ${props => props.color === "carrinho" ? '#FFFFFF' : 'black'};
+
     margin: 2% 2% 2% 2%;
 
 `
 
-const PrecoProduto = styled.p`
+export const PrecoProduto = styled.p`
     margin: 2% 2% 2% 2%;
 
 `
 
 
-const Produtos = () => {
+const Produtos = (props) => {
+
+
+
+    const { carrinho, adicionarCarrinho, carrinhoStorage, setCarrinhoStorage } = useContext(CarrinhoContext);
+    const navigate = useNavigate();
+
+
+
+    const produtosCards = [
+        { id:'1', produto:'Calça', preco:'R$150,00',categoria:'calca',descricao:'calça jeans', imagem: Calca},
+        { id:'2', produto:'Tênis', preco:'R$250,00',categoria:'calcados', descricao:'tênis branco', imagem:Tenis},
+        { id:'3', produto:'Camiseta', preco:'R$50,00',categoria:'camiseta', descricao:'camiseta de algodão', imagem:Camiseta}
+    ]
+
+
+
+
+    const [produtosFiltrados, setProdutosFiltrados] = useState([]);
+
+
+    useEffect (() => {
+        const handleProducts = () => {
+            return props.category ? produtosCards.filter(produto => produto.categoria === props.category) : produtosCards
+        }
+        setProdutosFiltrados(handleProducts);
+
+    }, [props.category])
+    
+
+
+
+    const handleAddToCart = (item) => {
+        adicionarCarrinho(item);
+        navigate('/carrinho');
+        setCarrinhoStorage(carrinho);
+    };
+
     return(
         <>
         <TextoProduto>Produtos que estão bombando!</TextoProduto>
         <ListaProdutos>
-            <CardProdutos>
-                <ImagensProdutos src={Calca}/>
-                <NomeProduto>Calca blajskj</NomeProduto>
-                <DescricaoProduto>kshfihsohfoshofhosho</DescricaoProduto>
-                <PrecoProduto>R$12</PrecoProduto>
-                <BotaoProduto>Adicionar Produto</BotaoProduto>
-            </CardProdutos>
-            <CardProdutos>
-                <ImagensProdutos src={Camiseta}/>
-                <NomeProduto>Calca blajskj</NomeProduto>
-                <DescricaoProduto>kshfihsohfoshofhosho</DescricaoProduto>
-                <PrecoProduto>R$12</PrecoProduto>
-                <BotaoProduto>Adicionar Produto</BotaoProduto>
-            </CardProdutos>
-            <CardProdutos>
-                <ImagensProdutos src={Tenis}/>
-                <NomeProduto>Calca blajskj</NomeProduto>
-                <DescricaoProduto>kshfihsohfoshofhosho</DescricaoProduto>
-                <PrecoProduto>R$12</PrecoProduto>
-
-                <BotaoProduto>Adicionar Produto</BotaoProduto>
-            </CardProdutos>
+            {produtosFiltrados.map(produto => (
+                <CardProdutos key={produto.id}>
+                    <ImagensProdutos src={produto.imagem} alt={produto.produto}/>
+                    <NomeProduto>{produto.produto}</NomeProduto>
+                    <DescricaoProduto>{produto.descricao}</DescricaoProduto>
+                    <PrecoProduto>{produto.preco}</PrecoProduto>
+                    <Botao onClick={() =>handleAddToCart(produto)} variante="primario" borda="primario">Adicionar Produto</Botao>
+                </CardProdutos>
+            ))}
         </ListaProdutos>
         </>
 

@@ -9,14 +9,16 @@ import Produtos from "../../components/Produtos"
 
 const Home = () => {
 
+
+
     return (
         <>
         <EstilosGlobais/>
          <Menu/>
          <Banner/>
          <FiltrosImagens/>
-         <Produtos/>
-         <Faixa/>
+{/*          <Produtos/>
+ */}         <Faixa/>
          <Contato/>
          <Footer/>
         </>

@@ -8,7 +8,7 @@ const Container = styled.div`
 `
 
 const TituloFaixa = styled.div`
-    font-size: 32px;
+    font-size: 2rem;
     text-align: center;
     color: #F6F6F6;
     padding: 4% 0%;

@@ -6,6 +6,9 @@ import oculos from './imagens/oculos.png'
 import camisetas from './imagens/camisetas.png'
 import calcas from './imagens/calcas.png'
 import casacos from './imagens/casacos.png'
+import Produtos from "../Produtos"
+import { useState } from "react"
+import { useEffect } from "react"
 
 
 
@@ -14,7 +17,7 @@ const FiltroContainer = styled.div`
     flex-direction: column;
     box-sizing: border-box;
     padding: 4% 20% 4% 20%;
-    gap: 10px;
+    gap: 2%;
 `
 
 const ListaImagensFiltros = styled.ul `
@@ -24,27 +27,67 @@ const ListaImagensFiltros = styled.ul `
 
 
 const Imagem = styled.img`
-    width: 160px;
-    height: 192px;
+    width: 15%;
+    height: 12%;
 
 `
 const TextoFiltro = styled.h3`
     text-align: center;
-    font-size: 32px;
+    font-size: 2rem;
     margin-bottom: 2%;
 `
 
 const FiltrosImagens = () => {
+
+    const imagensFiltros = [
+        {
+            id:1,
+            src:bolsas,
+            categoria:'bolsas'
+        },
+        {
+            id:2,
+            src:calcados,
+            categoria:'calcados'
+        },
+        {
+            id:3,
+            src:oculos,
+            categoria:'oculos'
+        },
+        {
+            id:4,
+            src:casacos,
+            categoria:'casacos'
+        },
+        {
+            id:5,
+            src:calcas,
+            categoria:'calca'
+        },
+    ]
+
+    const [nameFilter, setNameFilter] = useState('');
+
+    const handleFilterChange = (nameFilter) => {
+        setNameFilter(nameFilter);
+      };
+
+
+      
     return(
         <FiltroContainer>
             <TextoFiltro>Busque por categoria:</TextoFiltro>
             <ListaImagensFiltros>
-                    <Imagem src={bolsas}/>
-                    <Imagem src={calcados}/>
-                    <Imagem src={oculos}/>
-                    <Imagem src={casacos}/>
-                    <Imagem src={calcas}/>
+                    {imagensFiltros.map(imagem =>(
+                        <Imagem key={imagem.id} 
+                         category={imagem.categoria}
+                         src={imagem.src}
+                         onClick={()=>handleFilterChange(imagem.categoria)}/>
+                    ))
+                    }
             </ListaImagensFiltros>
+            <Produtos category={nameFilter}/>
         </FiltroContainer>
     )
 }
