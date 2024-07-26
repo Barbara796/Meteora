@@ -71,7 +71,7 @@ const Menu = () => {
 
     const navigate = useNavigate();
     const handleClick = () => navigate("/carrinho")    
-    const handleClickHome = () => navigate("/")
+    const handleClickHome = () => navigate("/") 
 
 
 

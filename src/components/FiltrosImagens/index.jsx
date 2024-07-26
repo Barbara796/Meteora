@@ -39,6 +39,13 @@ const TextoFiltro = styled.h3`
 
 const FiltrosImagens = () => {
 
+    const [nameFilter, setNameFilter] = useState('');
+
+    const handleFilterChange = (nameFilter) => {
+        setNameFilter(nameFilter);
+      };
+
+
     const imagensFiltros = [
         {
             id:1,
@@ -67,12 +74,7 @@ const FiltrosImagens = () => {
         },
     ]
 
-    const [nameFilter, setNameFilter] = useState('');
-
-    const handleFilterChange = (nameFilter) => {
-        setNameFilter(nameFilter);
-      };
-
+   
 
       
     return(

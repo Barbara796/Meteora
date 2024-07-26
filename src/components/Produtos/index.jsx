@@ -14,7 +14,6 @@ export const TextoProduto = styled.h3`
     text-align: ${props => props.alinhamento === "lista" ? 'start' : 'center'};
     font-size: ${props => props.fonte === "lista" ? '1.5rem' : '2rem'};
     color: ${props => props.color === "carrinho" ? '#FFFFFF' : 'black'};
-    
 `
 export const ListaProdutos = styled.ul`
     display: flex;
@@ -36,7 +35,7 @@ export const CardProdutos = styled.ul`
 `
 
 export const ImagensProdutos = styled.img`
-    width:${props => props.image === "carrinho" ? "100%" : "100%"};
+    width:${props => props.image === "carrinho" ? "8vw" : "100%"};
 ;
 `
 
@@ -49,13 +48,13 @@ export const NomeProduto = styled.h4`
 
 export const DescricaoProduto = styled.p`
     color: ${props => props.color === "carrinho" ? '#FFFFFF' : 'black'};
-
     margin: 2% 2% 2% 2%;
 
 `
 
 export const PrecoProduto = styled.p`
     margin: 2% 2% 2% 2%;
+    color: ${props => props.color === "carrinho" ? 'yellow' : 'black'};
 
 `
 
@@ -64,15 +63,15 @@ const Produtos = (props) => {
 
 
 
-    const { carrinho, adicionarCarrinho, carrinhoStorage, setCarrinhoStorage } = useContext(CarrinhoContext);
-    const navigate = useNavigate();
-
+    const { carrinho, adicionarCarrinho, setCarrinhoStorage } = useContext(CarrinhoContext);
+     const navigate = useNavigate();
+ 
 
 
     const produtosCards = [
-        { id:'1', produto:'Calça', preco:'R$150,00',categoria:'calca',descricao:'calça jeans', imagem: Calca},
-        { id:'2', produto:'Tênis', preco:'R$250,00',categoria:'calcados', descricao:'tênis branco', imagem:Tenis},
-        { id:'3', produto:'Camiseta', preco:'R$50,00',categoria:'camiseta', descricao:'camiseta de algodão', imagem:Camiseta}
+        { id:'1', produto:'Calça', preco:150.00,categoria:'calca',descricao:'Multicores e tamanhos. Tecido de algodão 100%, fresquinho para o verão. Modelagem unissex.', imagem: Calca},
+        { id:'2', produto:'Tênis', preco:250.00,categoria:'calcados', descricao:'Multicores e tamanhos. Tecido de algodão 100%, fresquinho para o verão. Modelagem unissex.k', imagem:Tenis},
+        { id:'3', produto:'Camiseta', preco:50.00,categoria:'camiseta', descricao:'Multicores e tamanhos. Tecido de algodão 100%, fresquinho para o verão. Modelagem unissex.', imagem:Camiseta}
     ]
 
 
@@ -80,14 +79,18 @@ const Produtos = (props) => {
 
     const [produtosFiltrados, setProdutosFiltrados] = useState([]);
 
-
-    useEffect (() => {
+    useEffect(() => {
         const handleProducts = () => {
-            return props.category ? produtosCards.filter(produto => produto.categoria === props.category) : produtosCards
+          const produtosFiltrados = props.category? produtosCards.filter(produto => produto.categoria === props.category) : produtosCards;
+          if (produtosFiltrados.length === 0) {
+            return "Produto esgotado em nossos estoques";
+          } else {
+            return produtosFiltrados;
+          }
         }
         setProdutosFiltrados(handleProducts);
+      }, [props.category])
 
-    }, [props.category])
     
 
 
@@ -98,23 +101,26 @@ const Produtos = (props) => {
         setCarrinhoStorage(carrinho);
     };
 
-    return(
+    return (
         <>
-        <TextoProduto>Produtos que estão bombando!</TextoProduto>
-        <ListaProdutos>
-            {produtosFiltrados.map(produto => (
+          <TextoProduto>Produtos que estão bombando!</TextoProduto>
+          <ListaProdutos>
+            {typeof produtosFiltrados === 'string'? (
+              <p>{produtosFiltrados}</p>
+            ) : (
+              produtosFiltrados.map(produto => (
                 <CardProdutos key={produto.id}>
-                    <ImagensProdutos src={produto.imagem} alt={produto.produto}/>
-                    <NomeProduto>{produto.produto}</NomeProduto>
-                    <DescricaoProduto>{produto.descricao}</DescricaoProduto>
-                    <PrecoProduto>{produto.preco}</PrecoProduto>
-                    <Botao onClick={() =>handleAddToCart(produto)} variante="primario" borda="primario">Adicionar Produto</Botao>
+                  <ImagensProdutos src={produto.imagem} alt={produto.produto}/>
+                  <NomeProduto>{produto.produto}</NomeProduto>
+                  <DescricaoProduto>{produto.descricao}</DescricaoProduto>
+                  <PrecoProduto>R${produto.preco}</PrecoProduto>
+                  <Botao onClick={() =>handleAddToCart(produto)} variante="primario" borda="primario">Adicionar Produto</Botao>
                 </CardProdutos>
-            ))}
-        </ListaProdutos>
+              ))
+            )}
+          </ListaProdutos>
         </>
-
-    )
+      )
 }
 
 
